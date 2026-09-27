@@ -2,11 +2,9 @@ use crate::routes::route::Route;
 use crate::process::frame::FrameProcessor;
 use api_schema::models::{ProcessImage200ResponsePixelsInner, ProcessImageRequest, ProcessImageResponse};
 use axum::{routing::post, extract::Json};
-use base64::{engine::general_purpose::STANDARD, Engine as _};
 
 async fn handler(Json(payload): Json<ProcessImageRequest>) -> Json<ProcessImageResponse> {
-    let base64 = STANDARD.encode(&payload.image_base64);
-    let mut processor = FrameProcessor::from_base_64(base64);
+    let mut processor = FrameProcessor::from_base_64(payload.image_base64);
 
     processor.resize(payload.width as u32, payload.height as u32);
 
@@ -23,7 +21,7 @@ async fn handler(Json(payload): Json<ProcessImageRequest>) -> Json<ProcessImageR
         .collect();
 
     Json(ProcessImageResponse {
-        image_base64: processor.as_bytes(),
+        image_base64: processor.as_base_64(),
         pixels: expected_pixels,
     })
 }
