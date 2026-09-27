@@ -13,6 +13,8 @@
 		{
 			devShells.${system}.default = pkgs.mkShell {
 				packages = with pkgs; [
+					pkg-config
+					openssl
 					rustc
 					cargo
 					rust-analyzer
