@@ -13,8 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Init the Submodules
+        run: git submodule update --init --recursive
+
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v3
+
+      - name: Set up Build Environment
+        run: nix develop -c ./generate-api-signatures.sh
 
       - name: Build
         run: nix develop -c cargo build
