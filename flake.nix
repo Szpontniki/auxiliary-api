@@ -15,6 +15,9 @@
 				packages = with pkgs; [
 					rustc
 					cargo
+					rust-analyzer
+					# Tooling
+					openapi-generator-cli
 				];
 		};
 	};
