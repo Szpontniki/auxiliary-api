@@ -6,6 +6,6 @@ use app::App;
 
 #[tokio::main]
 async fn main() {
-    let app = App::new(3000);
+    let app = App::new(3001);
     app.run().await;
 }
