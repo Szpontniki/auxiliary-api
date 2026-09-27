@@ -1,11 +1,12 @@
 use crate::routes::route::Route;
-use api_schema::models::{ProessImageRequest, ProcessImageResponse};
+use api_schema::models::{ProcessImageRequest, ProcessImageResponse};
 use axum::{routing::get, extract::Json};
 
 // TODO: implement this!!!
-async fn handler(Json(payload): Json<ProessImageRequest>) -> Json<ProcessImageResponse> {
+async fn handler(Json(payload): Json<ProcessImageRequest>) -> Json<ProcessImageResponse> {
     Json(ProcessImageResponse {
         image_base64: vec![1],
+        pixels: vec![],
     })
 }
 
