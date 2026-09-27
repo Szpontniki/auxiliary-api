@@ -1,0 +1,9 @@
+[package]
+name = "auxiliary-api"
+version = "0.1.0"
+edition = "2024"
+authors = ["Khenzii <khenzii@khenzii.dev>", "Azteczek"]
+repository = "https://github.com/Szpontniki/auxiliary-api"
+license = "GPL-3.0-only"
+
+[dependencies]
