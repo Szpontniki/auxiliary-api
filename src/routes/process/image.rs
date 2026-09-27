@@ -1,17 +1,12 @@
 use crate::routes::route::Route;
-use axum::{
-    body::Body,
-    extract::Request,
-    response::Response,
-    routing::get,
-};
+use api_schema::models::{ProessImageRequest, ProcessImageResponse};
+use axum::{routing::get, extract::Json};
 
-async fn handler(_request: Request<Body>) -> Response {
-    Response::builder()
-        .status(200)
-        .header("Content-Type", "text/plain")
-        .body(Body::from("Hello!"))
-        .unwrap()
+// TODO: implement this!!!
+async fn handler(Json(payload): Json<ProessImageRequest>) -> Json<ProcessImageResponse> {
+    Json(ProcessImageResponse {
+        image_base64: vec![1],
+    })
 }
 
 pub fn route() -> Route {
