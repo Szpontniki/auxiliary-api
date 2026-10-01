@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: database-development-user
+      POSTGRES_PASSWORD: database-development-password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-storage:/var/lib/postgresql
+
+  rustfs:
+    image: rustfs/rustfs:latest
+    environment:
+      RUSTFS_ACCESS_KEY: storage-development-user
+      RUSTFS_SECRET_KEY: storage-development-password
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - rustfs-storage:/data
+    command: --address :9000 --console-address :9001
+
+  adminer:
+    image: michalhosna/adminer:4.8.1-en_v1
+    ports:
+      - "3002:8080"
+    environment:
+      ADMINER_DRIVER: pgsql
+      ADMINER_SERVER: postgres
+      ADMINER_USERNAME: database-development-user
+      ADMINER_PASSWORD: database-development-password
+      ADMINER_DB: db
+      ADMINER_AUTOLOGIN: 1
+    links: 
+      - postgres:postgres
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-storage:
+  rustfs-storage:
