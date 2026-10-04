@@ -20,6 +20,7 @@
 					rust-analyzer
 					# Tooling
 					openapi-generator-cli
+					diesel-cli
 				];
 		};
 	};
