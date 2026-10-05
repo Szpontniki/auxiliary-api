@@ -10,6 +10,7 @@ use uuid::Uuid;
 pub struct FileReference {
     pub id: Uuid,
     pub size_bytes: i32,
+    // TODO: use a custom type for this later?
     pub mime_type: String,
     pub bucket: String,
     pub path: String,
