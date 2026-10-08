@@ -13,6 +13,7 @@
 		{
 			devShells.${system}.default = pkgs.mkShell {
 				packages = with pkgs; [
+					# Build related
 					pkg-config
 					openssl
 					rustc
@@ -20,6 +21,9 @@
 					rust-analyzer
 					# Tooling
 					openapi-generator-cli
+					diesel-cli
+					# Dependencies
+					libpq
 				];
 		};
 	};

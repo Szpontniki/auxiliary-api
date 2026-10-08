@@ -1,9 +1,11 @@
+pub mod utils;
+
 use api_schema::models::Pixel;
 use std::io::Cursor;
 use base64::{engine::general_purpose::STANDARD, Engine as _};
 use image::{DynamicImage, ImageFormat, imageops::FilterType};
 
-type Pixels = Vec<Pixel>;
+pub type Pixels = Vec<Pixel>;
 
 pub struct FrameProcessor {
     base_64: String,
