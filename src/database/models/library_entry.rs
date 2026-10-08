@@ -29,6 +29,7 @@ pub struct LibraryEntry {
 #[derive(Insertable)]
 #[diesel(table_name = library_entries)]
 pub struct NewLibraryEntry {
+    pub id: Uuid,
     pub file_reference_id: Uuid,
     pub file_type: MediaType,
     pub processed_output: Value,

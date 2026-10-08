@@ -21,6 +21,7 @@ pub struct FileReference {
 #[derive(Insertable)]
 #[diesel(table_name = file_references)]
 pub struct NewFileReference {
+    pub id: Uuid,
     pub size_bytes: i32,
     pub mime_type: String,
     pub bucket: String,

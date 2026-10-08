@@ -12,7 +12,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TYPE media_type AS ENUM ('Video', 'Image');
+CREATE TYPE media_type AS ENUM ('video', 'image');
 
 CREATE TABLE IF NOT EXISTS file_references (
 	id UUID PRIMARY KEY DEFAULT GEN_RANDOM_UUID(),
