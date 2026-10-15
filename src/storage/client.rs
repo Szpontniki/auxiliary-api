@@ -22,8 +22,12 @@ impl Storage {
             .credentials_provider(credentials)
             .load()
             .await;
+        let s3_config = aws_sdk_s3::config::Builder::from(&config)
+            .endpoint_url(environment.storage.endpoint.clone())
+            .force_path_style(true)
+            .build();
 
-        let client = Client::new(&config);
+        let client = Client::from_conf(s3_config);
 
         let storage = Storage { client };
         storage.setup_buckets().await;

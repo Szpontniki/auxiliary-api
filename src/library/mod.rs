@@ -1,33 +1,31 @@
-use crate::database;
-use crate::database::schema::{file_references, library_entries};
-use crate::database::models::file_reference::NewFileReference;
-use crate::database::models::library_entry::{MediaType, NewLibraryEntry};
-use crate::process::frame::{Pixels, utils::get_image_bytes};
-use image::DynamicImage;
+use crate::database::models::library_entry::MediaType;
+use crate::database::{self, models::library_entry::NewLibraryEntry};
+use crate::database::schema::library_entries;
+use crate::process::frame::Pixels;
+use crate::storage::bucket::Bucket;
+use crate::utils;
+use std::io::Cursor;
+use aws_sdk_s3::primitives::ByteStream;
+use image::{DynamicImage, ImageFormat};
 use diesel::RunQueryDsl;
 use uuid::Uuid;
 
-pub fn create_image_entry(processed_pixels: Pixels, processed_image_object: DynamicImage) {
-    let mut db_connection = database::connection();
-    let image_bytes = get_image_bytes(&processed_image_object).unwrap();
+fn image_object_to_bytes(image_object: DynamicImage) -> Vec<u8> {
+    let mut cursor = Cursor::new(Vec::new());
+    image_object
+        .write_to(&mut cursor, ImageFormat::Png)
+        .expect("Failed to encode image");
+    cursor.into_inner()
+}
 
-    let file_reference_id = Uuid::new_v4();
+pub async fn create_image_entry(processed_pixels: Pixels, processed_image_object: DynamicImage) {
+    let bytes = image_object_to_bytes(processed_image_object);
+    let byte_stream = ByteStream::from(bytes);
 
-    let new_file_reference = NewFileReference {
-        id: file_reference_id,
-        path: format!("{}.png", file_reference_id.to_string()),
-        // TODO: replace with an enum of some sort.
-        bucket: String::from("bucket"),
-        mime_type: String::from("image/png"),
-        size_bytes: i32::try_from(image_bytes).unwrap(),
-    };
-
-    diesel::insert_into(file_references::table)
-        .values(&new_file_reference)
-        .execute(&mut db_connection)
-        .unwrap();
-
+    let file_reference_id = utils::file_reference::upload_file(Bucket::Library, "png", "image/png", byte_stream).await;
     let library_entry_id = Uuid::new_v4();
+
+    let mut db_connection = database::connection();
 
     let new_library_entry = NewLibraryEntry {
         file_type: MediaType::Image,

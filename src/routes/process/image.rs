@@ -28,7 +28,7 @@ async fn handler(Json(payload): Json<ProcessImageRequest>) -> Json<ProcessImageR
     let expected_image_obj = processor.as_image_obj();
     let expected_base64 = processor.as_base_64();
 
-    library::create_image_entry(expected_pixels.clone(), expected_image_obj);
+    library::create_image_entry(expected_pixels.clone(), expected_image_obj).await;
     
     Json(ProcessImageResponse {
         image_base64: expected_base64,

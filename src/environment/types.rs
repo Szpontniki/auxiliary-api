@@ -19,6 +19,7 @@ pub struct Database {
 pub struct Storage {
     pub access_key: String,
     pub secret_key: String,
+    pub endpoint: String,
     pub region: String,
 }
 

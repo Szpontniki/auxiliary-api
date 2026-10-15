@@ -6,6 +6,7 @@ pub enum EnvironmentVariable {
     DatabaseName,
     StorageAccessKey,
     StorageSecretKey,
+    StorageEndpoint,
     StorageRegion,
 }
 
@@ -19,6 +20,7 @@ impl EnvironmentVariable {
             Self::DatabaseName => "DATABASE_NAME",
             Self::StorageAccessKey => "STORAGE_ACCESS_KEY",
             Self::StorageSecretKey => "STORAGE_SECRET_KEY",
+            Self::StorageEndpoint => "STORAGE_ENDPOINT",
             Self::StorageRegion => "STORAGE_SECRET_KEY",
         };
         str.to_string()
@@ -33,6 +35,7 @@ impl EnvironmentVariable {
             Self::DatabaseName => Some("db"),
             Self::StorageAccessKey => Some("storage-development-user"),
             Self::StorageSecretKey => Some("storage-development-password"),
+            Self::StorageEndpoint => Some("http://localhost:9000"),
             Self::StorageRegion => Some("eu-central-1"),
         };
         value.map(|value| value.to_string())
@@ -47,6 +50,7 @@ impl EnvironmentVariable {
             Self::DatabaseName => true,
             Self::StorageAccessKey => true,
             Self::StorageSecretKey => true,
+            Self::StorageEndpoint => true,
             Self::StorageRegion => true,
         }
     }
