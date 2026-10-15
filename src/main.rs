@@ -4,6 +4,7 @@ mod process;
 mod database;
 mod library;
 mod environment;
+mod storage;
 
 use app::App;
 

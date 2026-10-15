@@ -16,7 +16,14 @@ pub struct Database {
     pub name: String,
 }
 
+pub struct Storage {
+    pub access_key: String,
+    pub secret_key: String,
+    pub region: String,
+}
+
 pub struct Environment {
     pub metadata: Metadata,
     pub database: Database,
+    pub storage: Storage,
 }

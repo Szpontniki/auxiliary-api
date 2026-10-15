@@ -4,6 +4,9 @@ pub enum EnvironmentVariable {
     DatabaseURI,
     DatabasePort,
     DatabaseName,
+    StorageAccessKey,
+    StorageSecretKey,
+    StorageRegion,
 }
 
 impl EnvironmentVariable {
@@ -14,6 +17,9 @@ impl EnvironmentVariable {
             Self::DatabaseURI => "DATABASE_URI",
             Self::DatabasePort => "DATABASE_PORT",
             Self::DatabaseName => "DATABASE_NAME",
+            Self::StorageAccessKey => "STORAGE_ACCESS_KEY",
+            Self::StorageSecretKey => "STORAGE_SECRET_KEY",
+            Self::StorageRegion => "STORAGE_SECRET_KEY",
         };
         str.to_string()
     }
@@ -25,6 +31,9 @@ impl EnvironmentVariable {
             Self::DatabaseURI => Some("localhost"),
             Self::DatabasePort => Some("5432"),
             Self::DatabaseName => Some("db"),
+            Self::StorageAccessKey => Some("storage-development-user"),
+            Self::StorageSecretKey => Some("storage-development-password"),
+            Self::StorageRegion => Some("eu-central-1"),
         };
         value.map(|value| value.to_string())
     }
@@ -36,6 +45,9 @@ impl EnvironmentVariable {
             Self::DatabaseURI => true,
             Self::DatabasePort => true,
             Self::DatabaseName => true,
+            Self::StorageAccessKey => true,
+            Self::StorageSecretKey => true,
+            Self::StorageRegion => true,
         }
     }
 }
