@@ -1,6 +1,5 @@
 .direnv
 /target
 openapi
-**/database/generated
 .env*
 !.env.example
