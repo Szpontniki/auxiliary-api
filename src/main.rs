@@ -1,6 +1,11 @@
 mod routes;
 mod app;
 mod process;
+mod database;
+mod library;
+mod environment;
+mod storage;
+mod utils;
 
 use app::App;
 
