@@ -1,13 +1,16 @@
-use crate::database::models::library_entry::MediaType;
-use crate::database::{self, models::library_entry::NewLibraryEntry};
-use crate::database::schema::library_entries;
+use crate::database::models::library_entry::{LibraryEntry, MediaType, NewLibraryEntry};
+use crate::database::schema::{file_references, library_entries};
+use crate::database::models::file_reference::FileReference;
+use crate::database;
 use crate::process::frame::Pixels;
 use crate::storage::bucket::Bucket;
 use crate::utils;
 use std::io::Cursor;
 use aws_sdk_s3::primitives::ByteStream;
+use diesel::QueryDsl;
+use diesel::SelectableHelper;
 use image::{DynamicImage, ImageFormat};
-use diesel::RunQueryDsl;
+use diesel::{ExpressionMethods, RunQueryDsl};
 use uuid::Uuid;
 
 fn image_object_to_bytes(image_object: DynamicImage) -> Vec<u8> {
@@ -41,4 +44,15 @@ pub async fn create_image_entry(processed_pixels: Pixels, processed_image_object
         .values(&new_library_entry)
         .execute(&mut db_connection)
         .unwrap();
+}
+
+// TODO: add pagination here later.
+pub async fn get_recent_entries() -> Vec<(LibraryEntry, FileReference)> {
+    let mut db_connection = database::connection();
+    library_entries::table
+        .inner_join(file_references::table)
+        .select((LibraryEntry::as_select(), FileReference::as_select()))
+        .order(library_entries::updated_at.desc())
+        .load::<(LibraryEntry, FileReference)>(&mut db_connection)
+        .unwrap()
 }
