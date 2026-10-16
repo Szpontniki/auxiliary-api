@@ -1,0 +1,13 @@
+.direnv
+.git
+.github
+openapi
+target
+.env
+.env.example
+.envrc
+.gitignore
+.gitmodules
+compose.yml
+LICENSE
+README.md

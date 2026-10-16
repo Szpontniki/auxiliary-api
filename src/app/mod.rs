@@ -28,6 +28,9 @@ impl App {
         let address = SocketAddr::from(([127, 0, 0, 1], self.port as u16));
         let listener = TcpListener::bind(address).await.expect("Port already in use!");
 
+        // TODO: replace this with a logger module.
+        println!("Running!");
+
         axum::serve(listener, self.router).await.unwrap();
     }
 }

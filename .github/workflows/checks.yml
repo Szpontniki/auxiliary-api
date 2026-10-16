@@ -23,4 +23,4 @@ jobs:
         run: nix develop -c ./scripts/generate-api-signatures.sh
 
       - name: Build
-        run: nix develop -c cargo build
+        run: nix develop -c cargo build --release

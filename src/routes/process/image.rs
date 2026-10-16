@@ -21,6 +21,8 @@ fn type_cast_pixels(pixels: Pixels) -> Vec<ProcessImage200ResponsePixelsInner> {
 }
 
 async fn handler(Json(payload): Json<ProcessImageRequest>) -> Json<ProcessImageResponse> {
+    println!("What's up!");
+
     let mut processor = FrameProcessor::from_base_64(payload.image_base64);
 
     processor.resize(payload.width as u32, payload.height as u32);
