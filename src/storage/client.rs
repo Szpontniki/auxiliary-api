@@ -86,4 +86,9 @@ impl Storage {
             .await
             .unwrap();
     }
+
+    pub fn get_endpoint(&self) -> String {
+        let environment = environment();
+        environment.storage.endpoint.clone()
+    }
 }

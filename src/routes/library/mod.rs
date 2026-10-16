@@ -24,6 +24,7 @@ fn type_cast_library_entries(library_entry_pairs: Vec<(LibraryEntry, FileReferen
                 mime_type: file_reference.mime_type,
                 path: file_reference.path,
                 bucket: file_reference.bucket,
+                public_url: file_reference.public_url.unwrap_or("".to_string()),
                 created_at: file_reference.created_at.to_rfc3339(),
                 updated_at: file_reference.updated_at.to_rfc3339(),
             }),

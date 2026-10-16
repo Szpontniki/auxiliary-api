@@ -14,6 +14,7 @@ pub struct FileReference {
     pub mime_type: String,
     pub bucket: String,
     pub path: String,
+    pub public_url: Option<String>,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
 }
@@ -26,4 +27,5 @@ pub struct NewFileReference {
     pub mime_type: String,
     pub bucket: String,
     pub path: String,
+    pub public_url: Option<String>,
 }

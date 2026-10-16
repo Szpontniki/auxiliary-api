@@ -15,6 +15,19 @@ pub async fn upload_file(bucket: Bucket, extension: &str, content_type: &str, co
     let file_reference_id = Uuid::new_v4();
     let file_path = format!("{}.{}", file_reference_id.to_string(), extension);
 
+    let public_url_string = format!(
+        "{}/{}/{}.{}",
+        storage.get_endpoint(),
+        bucket.as_str(),
+        file_reference_id.to_string(),
+        extension,
+    );
+    let public_url = if bucket.is_public() {
+        Some(public_url_string)
+    } else {
+        None
+    };
+
     let bytes = content.collect().await.unwrap().into_bytes();
     let size_bytes = i32::try_from(bytes.len()).unwrap();
 
@@ -23,6 +36,7 @@ pub async fn upload_file(bucket: Bucket, extension: &str, content_type: &str, co
         path: file_path.clone(),
         bucket: bucket.as_str(),
         mime_type: String::from(content_type),
+        public_url,
         size_bytes,
     };
 
