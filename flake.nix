@@ -22,6 +22,7 @@
 					# Tooling
 					openapi-generator-cli
 					diesel-cli
+					docker
 					# Dependencies
 					libpq
 				];
