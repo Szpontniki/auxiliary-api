@@ -1,0 +1,21 @@
+name: "Build"
+on:
+  push:
+    branches:
+      - master
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  checks:
+    name: Checks
+    uses: ./.github/workflows/checks.yml
+
+  containerize:
+    needs:
+      - checks
+
+    name: Containerize
+    uses: ./.github/workflows/containerize.yml
+    with:
+      tags: ghcr.io/szpontniki/auxiliary-api:latest

@@ -1,0 +1,20 @@
+name: "Release"
+on:
+  release:
+    types: [published]
+
+jobs:
+  checks:
+    name: Checks
+    uses: ./.github/workflows/checks.yml
+
+  containerize:
+    needs:
+      - checks
+
+    name: Containerize
+    uses: ./.github/workflows/containerize.yml
+    with:
+      tags: |
+        ghcr.io/szpontniki/auxiliary-api:${{ github.event.release.tag_name }}
+        ghcr.io/szpontniki/auxiliary-api:latest

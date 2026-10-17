@@ -1,6 +1,6 @@
 name: "Checks"
 on:
-  push:
+  pull_request:
   workflow_call:
   workflow_dispatch:
 
@@ -12,9 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Init the Submodules
-        run: git submodule update --init --recursive
+        with:
+          submodules: recursive
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v3
