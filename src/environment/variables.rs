@@ -21,7 +21,7 @@ impl EnvironmentVariable {
             Self::StorageAccessKey => "STORAGE_ACCESS_KEY",
             Self::StorageSecretKey => "STORAGE_SECRET_KEY",
             Self::StorageEndpoint => "STORAGE_ENDPOINT",
-            Self::StorageRegion => "STORAGE_SECRET_KEY",
+            Self::StorageRegion => "STORAGE_REGION",
         };
         str.to_string()
     }
