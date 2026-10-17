@@ -41,10 +41,9 @@ impl App {
             .layer(
                 TraceLayer::new_for_http()
                     .on_request(DefaultOnRequest::new().level(Level::INFO))
-                    .on_request(DefaultOnRequest::new().level(Level::ERROR))
             );
 
-        let address = SocketAddr::from(([127, 0, 0, 1], self.port as u16));
+        let address = SocketAddr::from(([0, 0, 0, 0], self.port as u16));
         let listener = match TcpListener::bind(address).await {
             Ok(listener) => listener,
             Err(err) => {
