@@ -24,6 +24,9 @@
 					diesel-cli
 					# Dependencies
 					libpq
+
+					# For azteczek :P"
+					docker
 				];
 		};
 	};
