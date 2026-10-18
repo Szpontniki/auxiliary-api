@@ -28,6 +28,7 @@ pub fn environment() -> &'static Environment {
                 access_key: get_env_var(StorageAccessKey),
                 secret_key: get_env_var(StorageSecretKey),
                 endpoint: get_env_var(StorageEndpoint),
+                public_endpoint: get_env_var(StoragePublicEndpoint),
                 region: get_env_var(StorageRegion),
             },
         }
