@@ -20,6 +20,7 @@ pub struct Storage {
     pub access_key: String,
     pub secret_key: String,
     pub endpoint: String,
+    pub public_endpoint: String,
     pub region: String,
 }
 

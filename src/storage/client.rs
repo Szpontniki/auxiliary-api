@@ -89,6 +89,10 @@ impl Storage {
 
     pub fn get_endpoint(&self) -> String {
         let environment = environment();
-        environment.storage.endpoint.clone()
+        if environment.storage.public_endpoint == String::from("") {
+            environment.storage.endpoint.clone()
+        } else {
+            environment.storage.public_endpoint.clone()
+        }
     }
 }

@@ -7,6 +7,7 @@ pub enum EnvironmentVariable {
     StorageAccessKey,
     StorageSecretKey,
     StorageEndpoint,
+    StoragePublicEndpoint,
     StorageRegion,
 }
 
@@ -21,6 +22,7 @@ impl EnvironmentVariable {
             Self::StorageAccessKey => "STORAGE_ACCESS_KEY",
             Self::StorageSecretKey => "STORAGE_SECRET_KEY",
             Self::StorageEndpoint => "STORAGE_ENDPOINT",
+            Self::StoragePublicEndpoint => "STORAGE_PUBLIC_ENDPOINT",
             Self::StorageRegion => "STORAGE_REGION",
         };
         str.to_string()
@@ -36,6 +38,7 @@ impl EnvironmentVariable {
             Self::StorageAccessKey => Some("storage-development-user"),
             Self::StorageSecretKey => Some("storage-development-password"),
             Self::StorageEndpoint => Some("http://localhost:9000"),
+            Self::StoragePublicEndpoint => Some("http://localhost:9000"),
             Self::StorageRegion => Some("eu-central-1"),
         };
         value.map(|value| value.to_string())
@@ -51,6 +54,7 @@ impl EnvironmentVariable {
             Self::StorageAccessKey => true,
             Self::StorageSecretKey => true,
             Self::StorageEndpoint => true,
+            Self::StoragePublicEndpoint => false,
             Self::StorageRegion => true,
         }
     }
