@@ -15,6 +15,4 @@ jobs:
     name: Containerize
     uses: ./.github/workflows/containerize.yml
     with:
-      tags: |
-        ghcr.io/szpontniki/auxiliary-api:${{ github.event.release.tag_name }}
-        ghcr.io/szpontniki/auxiliary-api:latest
+      tags: ghcr.io/szpontniki/auxiliary-api:${{ github.event.release.tag_name }}
