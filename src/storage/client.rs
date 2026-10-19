@@ -64,12 +64,24 @@ impl Storage {
             .send()
             .await
             .unwrap();
+    }
 
+    async fn bucket_exists(&self, bucket: Bucket) -> bool {
+        match self.client
+            .head_bucket()
+            .bucket(bucket.as_str())
+            .send()
+            .await {
+                Ok(_) => true,
+                Err(_) => false,
+            }
     }
 
     async fn setup_buckets(&self) {
         let buckets = bucket::get_all();
         for bucket in buckets {
+            if self.bucket_exists(bucket.clone()).await { continue };
+
             self.create_bucket(bucket.clone()).await;
             if bucket.is_public() { self.make_bucket_public(bucket).await; }
         }
