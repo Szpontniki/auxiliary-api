@@ -10,7 +10,7 @@ on:
 
 jobs:
   images:
-    name: ⚙️ Build Docker image(s)
+    name: ⚙️ Build Image(s)
     runs-on: ubuntu-latest
 
     steps:

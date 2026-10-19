@@ -5,8 +5,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-check:
-    name: 🗿 Build Check
+  checks:
+    name: 🗿 Run All
     runs-on: ubuntu-latest
 
     steps:
@@ -15,11 +15,5 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v3
-
-      - name: Set up Build Environment
-        run: nix develop -c ./scripts/generate-api-signatures.sh
-
-      - name: Build
-        run: nix develop -c cargo build --release
+      - name: Run checks
+        uses: ./.github/actions/checks

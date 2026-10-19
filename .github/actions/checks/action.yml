@@ -1,0 +1,18 @@
+name: Checks
+description: Performs tests on the build
+
+runs:
+  using: composite
+  steps:
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@v3
+
+    - name: Set up Build Environment
+      shell: bash
+      working-directory: ${{ github.action_path }}/../../..
+      run: nix develop -c ./scripts/generate-api-signatures.sh
+
+    - name: Build
+      shell: bash
+      working-directory: ${{ github.action_path }}/../../..
+      run: nix develop -c cargo build --release
